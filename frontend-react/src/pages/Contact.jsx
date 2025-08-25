@@ -1,7 +1,7 @@
 export default function Contact() {
   const PROFILE = {
     name: 'Cristian Gutierrez',
-    title: 'Frontend Developer ·',
+    title: 'Fullstack Developer ·',
     email: 'Cristianguti.93@gmail.com',
     location: 'Vigo, España',
     availability: 'Disponible / freelance',
