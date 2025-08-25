@@ -5,8 +5,8 @@ export default function Contact() {
     email: 'Cristianguti.93@gmail.com',
     location: 'Vigo, España',
     availability: 'Disponible / freelance',
-    avatar: 'public/me.png',   // pon tu foto en public/me.jpg
-    cv: 'public/CV.pdf',       // opcional: coloca tu CV en public/cv.pdf
+    avatar: 'public/me.png',   
+    cv: 'public/CV.pdf',      
     socials: {
       github: 'https://github.com/CristianGutierrezc',
       linkedin: 'https://www.linkedin.com/in/cristiangutierrezc/',

@@ -291,7 +291,7 @@ input[type="file"] { padding: 8px; }
 /* CTA fila */
 .cta-row{ display:flex; gap:8px; margin-top:12px }
 
-/* Panel (reusa tus estilos base) */
+/* Panel  */
 .panel{
   background: var(--card);
   border:1px solid var(--line);
@@ -301,7 +301,7 @@ input[type="file"] { padding: 8px; }
 }
 .panel__title{ margin: 0 0 12px 0; font-size:1.1rem }
 
-/* Ajustes generales de enlaces (si quieres acento sutil) */
+/* Ajustes generales de enlaces  */
 a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
 a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
