@@ -12,9 +12,10 @@ export async function getProduct(id) {
   return data
 }
 
-export async function createProduct({ nombre, imagenFile }) {
+export async function createProduct({ nombre, precio, imagenFile }) {
   const form = new FormData()
   form.append('nombre', nombre)
+  form.append('precio', String(precio))
   if (imagenFile) form.append('imagen', imagenFile)
 
   const { data } = await api.post(BASE, form, {
@@ -23,17 +24,22 @@ export async function createProduct({ nombre, imagenFile }) {
   return data
 }
 
-export async function updateProduct(id, { nombre, imagenFile }) {
+export async function updateProduct({ id, nombre, precio, imagenFile }) {
+  // Si hay imagen, mandamos multipart; si no, JSON normal
   if (imagenFile) {
     const form = new FormData()
-    form.append('nombre', nombre)
+    if (nombre) form.append('nombre', nombre)
+    if (typeof precio !== 'undefined') form.append('precio', String(precio))
     form.append('imagen', imagenFile)
     const { data } = await api.put(`${BASE}/${id}`, form, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     return data
   } else {
-    const { data } = await api.put(`${BASE}/${id}`, { nombre })
+    const payload = {}
+    if (nombre) payload.nombre = nombre
+    if (typeof precio !== 'undefined') payload.precio = precio
+    const { data } = await api.put(`${BASE}/${id}`, payload)
     return data
   }
 }

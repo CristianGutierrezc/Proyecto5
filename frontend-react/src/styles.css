@@ -137,6 +137,34 @@ h1, h2, h3 { margin: 12px 0; font-family: var(--font-heading); letter-spacing: -
 .kora-card__meta { color: var(--muted); font-size: .92rem; }
 .kora-card__actions { display:flex; gap: 8px; flex-wrap: wrap; }
 
+/* Precio visible en tarjeta y detalle */
+.kora-card__price {
+  margin: 4px 0 8px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Badge de precio en la esquina de la imagen */
+.kora-card__media { position: relative; }
+.kora-card__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+.detail__price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 8px 0 16px;
+}
+
 /* =========================
    Dashboard (Paneles)
    ========================= */

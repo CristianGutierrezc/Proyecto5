@@ -95,6 +95,8 @@ export default function Dashboard() {
                   <th>Imagen</th>
                   <th>Nombre</th>
                   <th>Acciones</th>
+                  <th>Precio</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -106,6 +108,8 @@ export default function Dashboard() {
                       )}
                     </td>
                     <td>{p.nombre}</td>
+                    <td>{new Intl.NumberFormat('es-ES', { style: 'currency', currency: p.moneda || 'EUR' }).format(p.precio ?? 0)}</td>
+
                     <td>
                       <button className="btn" onClick={() => setSelected(p)}>Editar</button>
                       <button className="btn btn--danger" onClick={() => handleDelete(p)}>Eliminar</button>

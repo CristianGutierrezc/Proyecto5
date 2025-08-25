@@ -31,38 +31,60 @@ function publicUrl(req, filename) {
 }
 
 // Listar
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   const items = await Producto.find().sort({ createdAt: -1 })
   res.json(items)
 })
 
-// Detalle
+// Obtener por id
 router.get('/:id', async (req, res) => {
   const item = await Producto.findById(req.params.id)
   if (!item) return res.status(404).json({ error: 'No encontrado' })
   res.json(item)
 })
 
-// Crear (multipart con name="imagen")
+// Crear
 router.post('/', upload.single('imagen'), async (req, res) => {
   const { nombre } = req.body
-  if (!nombre || !nombre.trim()) {
-    return res.status(400).json({ error: 'El nombre es obligatorio' })
+  const precio = Number(req.body.precio)
+
+  if (!nombre || !nombre.trim()) return res.status(400).json({ error: 'Nombre requerido' })
+  if (Number.isNaN(precio) || precio < 0) return res.status(400).json({ error: 'Precio inválido' })
+
+  const doc = new Producto({
+    nombre: nombre.trim(),
+    precio,
+    moneda: 'EUR',
+  })
+
+  if (req.file?.filename) {
+    doc.imagenFilename = req.file.filename
+    doc.imagenUrl = publicUrl(req, req.file.filename)
   }
-  const imagenFilename = req.file?.filename
-  const imagenUrl = publicUrl(req, imagenFilename)
-  const created = await Producto.create({ nombre: nombre.trim(), imagenUrl, imagenFilename })
-  res.status(201).json(created)
+
+  await doc.save()
+  res.status(201).json(doc)
 })
 
-// Actualizar (multipart o JSON)
+// Actualizar
 router.put('/:id', upload.single('imagen'), async (req, res) => {
   const { id } = req.params
   const item = await Producto.findById(id)
   if (!item) return res.status(404).json({ error: 'No encontrado' })
 
   const { nombre } = req.body
-  if (nombre && nombre.trim()) item.nombre = nombre.trim()
+  if (typeof nombre === 'string' && nombre.trim()) {
+    item.nombre = nombre.trim()
+  }
+
+  if (typeof req.body.precio !== 'undefined') {
+    const nuevoPrecio = Number(req.body.precio)
+    if (Number.isNaN(nuevoPrecio) || nuevoPrecio < 0) {
+      return res.status(400).json({ error: 'Precio inválido' })
+    }
+    item.precio = nuevoPrecio
+    item.moneda = 'EUR'
+  }
 
   if (req.file?.filename) {
     const old = item.imagenFilename

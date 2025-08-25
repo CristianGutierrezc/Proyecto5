@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom'
 import { getProduct } from '../api/products'
 import { registrarCompra } from '../api/ventas'
 
+const eur = (v, moneda='EUR') =>
+  new Intl.NumberFormat('es-ES', { style: 'currency', currency: moneda }).format(v ?? 0)
+
 export default function ProductDetail() {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
@@ -15,6 +18,7 @@ export default function ProductDetail() {
         setLoading(true)
         const data = await getProduct(id)
         setProduct(data)
+        setError('')
       } catch (e) {
         console.error(e)
         setError('No se pudo cargar el producto')
@@ -28,14 +32,14 @@ export default function ProductDetail() {
     try {
       await registrarCompra(product)
       alert('Compra registrada ✅')
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      console.error(err)
       alert('No se pudo registrar la compra')
     }
   }
 
   if (loading) return <p>Cargando…</p>
-  if (error) return <p className="error">{error}</p>
+  if (error) return <p>{error}</p>
   if (!product) return <p>Producto no encontrado</p>
 
   return (
@@ -45,6 +49,7 @@ export default function ProductDetail() {
       )}
       <div className="detail__info">
         <h1>{product.nombre}</h1>
+        <p className="detail__price">{eur(product.precio, product.moneda)}</p>
         <p>ID: {product._id || product.id}</p>
         <button className="btn btn--primary" onClick={handleBuy}>Comprar</button>
       </div>
