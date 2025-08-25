@@ -16,8 +16,7 @@ export default function Contact() {
       'React', 'Vite', 'Node.js', 'Express', 'MongoDB',
       'Mongoose', 'JS', 'Git', 'CSS', 'HTML'
     ],
-    about: `Desarrollador/a orientado/a a crear interfaces limpias y accesibles.
-Me apasiona la experiencia de usuario, el rendimiento y las buenas prácticas.
+    about: `
 He trabajado en proyectos full-stack con React + Node/Express + MongoDB.`
   }
 
