@@ -1,0 +1,314 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/*Variables (tema oscuro) */
+:root {
+  --font-heading: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  --bg: #0a0a0a;           /* fondo base */
+  --fg: #ffffff;           /* texto */
+  --muted: #9a9a9a;        /* texto secundario */
+
+  --card: #121212;         /* tarjetas/paneles */
+  --line: #1a1a1a;         /* bordes */
+
+  --accent: #ffffff;       /* acento KŌRA (blanco sobre oscuro) */
+  --accent-cta: #00e5ff;   /* acento alternativo para CTAs si lo quieres */
+
+  --danger: #b00020;
+  --success: #1faa00;
+
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/*Base*/
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.45 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+
+h1, h2, h3 { margin: 12px 0; font-family: var(--font-heading); letter-spacing: -0.02em; }
+.section { padding: 16px 0; }
+.error { color: #ff6b6b; }
+
+/* Utilidades de truncado */
+.clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* =========================
+   Header
+   ========================= */
+.kora-header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(6px);
+  background: rgba(10,10,10,.7);
+  border-bottom: 1px solid var(--line);
+}
+.kora-header__content { display:flex; align-items:center; justify-content:space-between; }
+.kora-logo { color: var(--fg); text-decoration:none; font-weight: 900; letter-spacing: 0.2em; }
+.kora-nav a { color: var(--muted); text-decoration:none; margin: 0 12px; }
+.kora-nav a.active, .kora-nav a:hover { color: var(--fg); }
+.kora-actions { display:flex; gap: 8px; }
+.icon-btn {
+  width:36px; height:36px; display:grid; place-items:center;
+  border:1px solid var(--line); border-radius: 999px;
+  background: transparent; color: var(--fg); cursor:pointer;
+}
+.icon-btn:hover { background: #151515; }
+
+/* =========================
+   Botones
+   ========================= */
+.btn {
+  padding: 10px 14px; border-radius: 999px;
+  border:1px solid var(--line); background: transparent; color: var(--fg);
+  cursor:pointer; transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+}
+.btn:hover { transform: translateY(-1px); border-color: #222; }
+.btn:disabled { opacity: .6; cursor:not-allowed; }
+
+.btn--primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn--danger  { background: var(--danger); color:#fff; border-color: var(--danger); }
+.btn-sm { padding: 6px 10px; font-size: .9rem; }
+
+/* =========================
+   Banner (portada)
+   ========================= */
+.kora-banner { position: relative; border-bottom: 1px solid var(--line); }
+.kora-banner__img {
+  width:100%;
+  height: 36vh; min-height: 220px; max-height: 420px;
+  background-size: cover; background-position: center;
+  filter: grayscale(100%) contrast(1.08) brightness(.85);
+}
+.kora-banner__overlay { position: absolute; inset:0; display:grid; align-content:center; gap:10px; padding: 0 24px; }
+.kora-banner__title { font-size: clamp(26px, 4vw, 48px); margin:0; }
+.kora-banner__sub { margin:0 0 8px 0; color: var(--muted); }
+
+/* =========================
+   Grid / Cards (Catálogo)
+   ========================= */
+.grid {
+  display:grid; gap: 14px; margin-top: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.kora-card {
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  overflow:hidden; background: var(--card);
+  display:flex; flex-direction:column;
+  transition: transform .12s ease, border-color .12s ease;
+}
+.kora-card:hover { transform: translateY(-2px); border-color: #222; }
+
+.kora-card__media {
+  width: 100%;
+  /* tamaño uniforme: CUADRADO */
+  aspect-ratio: 1 / 1;
+  background: #0b0b0b;
+  display:grid; place-items:center;
+}
+.kora-card__media img {
+  width:100%; height:100%;
+  object-fit: cover; /* asegura recorte uniforme sin deformar */
+  filter: grayscale(10%);
+  transition: transform .2s ease;
+}
+.kora-card:hover .kora-card__media img { transform: scale(1.03); }
+
+.kora-card__ph {
+  width: 60%; height: 60%;
+  border:1px dashed var(--line); border-radius: 12px;
+}
+
+.kora-card__body { padding: 12px; display:grid; gap: 10px; }
+.kora-card__title { margin:0; font-weight: 600; font-size: 1rem; }
+.kora-card__title.clamp-2 { /* por si quieres forzar desde JSX */ }
+.kora-card__meta { color: var(--muted); font-size: .92rem; }
+.kora-card__actions { display:flex; gap: 8px; flex-wrap: wrap; }
+
+/* =========================
+   Dashboard (Paneles)
+   ========================= */
+.dashboard__grid {
+  display:grid; grid-template-columns: 420px 1fr; gap: 20px;
+}
+@media (max-width: 1024px) {
+  .dashboard__grid { grid-template-columns: 1fr; }
+}
+
+/* Panel visual */
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.panel + .panel { margin-top: 16px; }
+.panel__title { margin: 0 0 12px 0; font-size: 1.1rem; }
+
+/* Tabla */
+.table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.table th, .table td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px; text-align: left; vertical-align: middle;
+}
+.table th { color: var(--muted); font-weight: 600; }
+
+/* Miniatura consistente en tabla */
+.product-thumb {
+  width: 56px; height: 56px; object-fit: cover;
+  border-radius: 8px; border:1px solid var(--line);
+}
+
+/* =========================
+   Formularios
+   ========================= */
+.form { display:grid; gap: 12px; }
+.form__field { display:grid; gap: 6px; }
+.form__field > span { color: var(--muted); font-size: .92rem; }
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="file"] {
+  width:100%;
+  background:#0f0f0f;
+  color:var(--fg);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+}
+input[type="file"] { padding: 8px; }
+
+/* Previsualización de imagen en el formulario: tamaño controlado */
+.form__preview {
+  width:100%;
+  max-width: 220px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+}
+.form__preview img {
+  display:block;
+  width:100%; height:160px; /* forzamos altura para uniformidad */
+  object-fit: cover;
+}
+
+/* =========================
+   Detalle de producto
+   ========================= */
+.detail {
+  display:grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;
+}
+.detail__img {
+  width:100%; max-height:420px; object-fit:cover;
+  border:1px solid var(--line); border-radius: var(--radius);
+}
+@media (max-width: 1024px) {
+  .detail { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   Contact — KŌRA
+   ========================= */
+.muted{ color: var(--muted); }
+
+.contact-hero{
+  display:grid;
+  grid-template-columns: 120px 1fr;
+  gap:16px; align-items:center;
+}
+.contact-hero__avatar{
+  width:120px; height:120px; border-radius:999px;
+  overflow:hidden; border:1px solid var(--line);
+}
+.contact-hero__avatar img{
+  width:100%; height:100%; object-fit:cover;
+  filter: grayscale(10%);
+}
+.contact-hero__info{}
+.contact-hero__title{ margin:.25rem 0 .5rem; color:var(--muted); }
+
+.link-group{
+  display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
+}
+.link-btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem .8rem; border-radius:999px;
+  border:1px solid var(--line); background:transparent; color:var(--fg);
+  text-decoration:none; cursor:pointer;
+}
+.link-btn:hover{ border-color:#222; }
+
+.contact-grid{
+  margin-top:16px;
+  display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+}
+@media (max-width: 900px){
+  .contact-grid{ grid-template-columns:1fr; }
+}
+
+/* Stats */
+.stat-grid{
+  margin-top:12px;
+  display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px;
+}
+@media (max-width: 600px){
+  .stat-grid{ grid-template-columns: 1fr 1fr; }
+}
+.stat-card{
+  background: var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+}
+.stat-num{ display:block; font-size:1.25rem; font-weight:700 }
+.stat-label{ display:block; color:var(--muted); font-size:.9rem }
+
+/* Badges */
+.tech-badges{ display:flex; flex-wrap:wrap; gap:8px }
+.badge{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.4rem .7rem; border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--fg); background:transparent; font-size:.92rem;
+}
+.badge--tech{ background:#0f0f0f; }
+
+/* CTA fila */
+.cta-row{ display:flex; gap:8px; margin-top:12px }
+
+/* Panel (reusa tus estilos base) */
+.panel{
+  background: var(--card);
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+.panel__title{ margin: 0 0 12px 0; font-size:1.1rem }
+
+/* Ajustes generales de enlaces (si quieres acento sutil) */
+a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* =========================
+   Utilidades de margen
+   ========================= */
+.mt-0{ margin-top:0 } .mb-0{ margin-bottom:0 }
+.mt-1{ margin-top:8px } .mb-1{ margin-bottom:8px }
+.mt-2{ margin-top:12px } .mb-2{ margin-bottom:12px }
+.mt-3{ margin-top:16px } .mb-3{ margin-bottom:16px }
