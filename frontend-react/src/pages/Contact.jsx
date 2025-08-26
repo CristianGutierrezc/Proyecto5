@@ -1,94 +1,126 @@
 export default function Contact() {
+  // Datos de perfil 
   const PROFILE = {
     name: 'Cristian Gutierrez',
-    title: 'Fullstack Developer ·',
+    title: 'Full-Stack Developer',
     email: 'Cristianguti.93@gmail.com',
     location: 'Vigo, España',
-    availability: 'Disponible / freelance',
-    avatar: 'public/me.png',   
-    cv: 'public/CV.pdf',      
+    availability: 'Disponible para proyectos',
+    avatar: '/me.png',   
+    cv: '/CV.pdf',       
     socials: {
       github: 'https://github.com/CristianGutierrezc',
       linkedin: 'https://www.linkedin.com/in/cristiangutierrezc/',
-      portfolio: 'Proximamente'
+      portfolio: 'Proximamente' 
     },
+    // Tecnologías principales 
     tech: [
       'React', 'Vite', 'Node.js', 'Express', 'MongoDB',
-      'Mongoose', 'JS', 'Git', 'CSS', 'HTML'
+      'JavaScript', 'HTML', 'CSS', 'REST APIs', 'Git'
     ],
-    about: `Desarrollador/a orientado/a a crear interfaces limpias y accesibles.
-He trabajado en proyectos full-stack con React + Node/Express + MongoDB.`
+    // sección de certificaciones
+    certs: [
+      {
+        name: 'AI-900: Microsoft Azure AI Fundamentals',
+        issuer: 'Microsoft',
+        verifyUrl: 'https://www.credly.com/badges/af30f9c8-db47-4765-92d2-301a24c91376/public_url' 
+      }
+    ]
   }
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(PROFILE.email)
-      alert('Correo copiado al portapapeles 📋')
-    } catch {
-      location.href = `mailto:${PROFILE.email}`
-    }
+  //  email al portapapeles
+  function copyEmail() {
+    navigator.clipboard.writeText(PROFILE.email)
+      .then(() => alert('Email copiado'))
+      .catch(() => alert('No se pudo copiar el email'))
   }
+
+  // Mailto con asunto y cuerpo predefinidos
+  const mailto = `mailto:${PROFILE.email}?subject=Contacto%20profesional&body=Hola%20Cristian,%20te%20escribo%20por%20...`
 
   return (
     <section className="contact">
-      {/* HERO */}
-      <div className="contact-hero panel">
-        <div className="contact-hero__avatar">
-          <img src={PROFILE.avatar} alt={`Foto de ${PROFILE.name}`} />
-        </div>
+      {/* Cabecera tipo "hero" */}
+      <div className="contact__hero">
+        <img
+          className="contact__avatar"
+          src={PROFILE.avatar}
+          alt={`Foto de ${PROFILE.name}`}
+          loading="lazy"
+        />
 
-        <div className="contact-hero__info">
-          <h1 className="mt-0">{PROFILE.name}</h1>
-          <p className="contact-hero__title">{PROFILE.title}</p>
-          <p className="muted">{PROFILE.location} · {PROFILE.availability}</p>
+        <div className="contact__summary">
+          <h1 className="contact__name">{PROFILE.name}</h1>
+          <p className="contact__title">{PROFILE.title}</p>
 
-          <div className="link-group">
-            <a className="link-btn" href={PROFILE.socials.github} target="_blank" rel="noreferrer">GitHub</a>
-            <a className="link-btn" href={PROFILE.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="link-btn" href={PROFILE.socials.portfolio} target="_blank" rel="noreferrer">Portfolio</a>
-            <button className="link-btn" onClick={copyEmail}>Email</button>
-            {PROFILE.cv && <a className="link-btn" href={PROFILE.cv} target="_blank" rel="noreferrer">Descargar CV</a>}
+          <ul className="contact__meta">
+            <li><strong>Ubicación:</strong> {PROFILE.location}</li>
+            <li><strong>Disponibilidad:</strong> {PROFILE.availability}</li>
+            <li><strong>Email:</strong> <a href={mailto}>{PROFILE.email}</a></li>
+          </ul>
+
+          <div className="contact__cta">
+            <a className="btn btn--primary" href={mailto}>Hablemos</a>
+            <button className="btn" type="button" onClick={copyEmail}>Copiar email</button>
+            <a className="btn" href={PROFILE.cv} target="_blank" rel="noreferrer">Descargar CV</a>
+          </div>
+
+          <div className="contact__links">
+            <a href={PROFILE.socials.github} target="_blank" rel="noreferrer">GitHub</a>
+            <span>·</span>
+            <a href={PROFILE.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <span>·</span>
+            <a href={PROFILE.socials.portfolio} target="_blank" rel="noreferrer">Portfolio</a>
           </div>
         </div>
       </div>
 
-      {/* GRID */}
-      <div className="contact-grid">
+      {/* Bloques en grid: Sobre mí, Tech, Certificaciones */}
+      <div className="contact__grid">
         {/* Sobre mí */}
-        <div className="panel">
-          <h2 className="panel__title">Sobre mí</h2>
-          <p className="clamp-3" style={{whiteSpace:'pre-line'}}>{PROFILE.about}</p>
+        <article className="card">
+          <h2 className="card__title">Sobre mí</h2>
+          <p className="card__text">
+            Desarrollador full-stack con foco en interfaces limpias y APIs robustas.
+            Experiencia en React, Node.js, Express y MongoDB. Me interesa aplicar IA
+            práctica en productos digitales, manteniendo buenas prácticas y un diseño cuidadoso.
+          </p>
+        </article>
 
-          <div className="stat-grid">
-            <div className="stat-card">
-              <span className="stat-num">10+</span>
-              <span className="stat-label">Proyectos</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-num">3</span>
-              <span className="stat-label">Stack principales</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-num">2025</span>
-              <span className="stat-label">Año de foco</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Tech stack */}
-        <div className="panel">
-          <h2 className="panel__title">Tecnologías</h2>
-          <div className="tech-badges">
+        {/* Tecnologías */}
+        <article className="card">
+          <h2 className="card__title">Tecnologías</h2>
+          <div className="badges">
             {PROFILE.tech.map((t) => (
-              <span key={t} className="badge badge--tech">{t}</span>
+              <span key={t} className="badge">{t}</span>
             ))}
           </div>
+        </article>
 
-          <div className="cta-row">
-            <a className="btn btn--primary" href={`mailto:${PROFILE.email}`}>Hablemos</a>
-            <button className="btn" onClick={copyEmail}>Copiar email</button>
-          </div>
-        </div>
+        {/* Certificaciones (incluye AI-900) */}
+        <article className="card">
+          <h2 className="card__title">Certificaciones</h2>
+          <ul className="certs">
+            {PROFILE.certs.map((c) => (
+              <li key={c.name} className="certs__item">
+                <div className="certs__info">
+                  <strong className="certs__name">{c.name}</strong>
+                  <span className="certs__issuer"> · {c.issuer}</span>
+                </div>
+                {c.verifyUrl ? (
+                  <a className="btn btn--ghost" href={c.verifyUrl} target="_blank" rel="noreferrer">
+                    Verificar
+                  </a>
+                ) : (
+                  <span className="certs__pending">Verificación no disponible</span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="card__hint">
+           
+          </p>
+        </article>
       </div>
     </section>
   )

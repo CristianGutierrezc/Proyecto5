@@ -251,87 +251,186 @@ input[type="file"] { padding: 8px; }
 /* =========================
    Contact — KŌRA
    ========================= */
-.muted{ color: var(--muted); }
+/* ===== Contacto (estilos scoped por prefijo .contact) ===== */
 
-.contact-hero{
-  display:grid;
-  grid-template-columns: 120px 1fr;
-  gap:16px; align-items:center;
-}
-.contact-hero__avatar{
-  width:120px; height:120px; border-radius:999px;
-  overflow:hidden; border:1px solid var(--line);
-}
-.contact-hero__avatar img{
-  width:100%; height:100%; object-fit:cover;
-  filter: grayscale(10%);
-}
-.contact-hero__info{}
-.contact-hero__title{ margin:.25rem 0 .5rem; color:var(--muted); }
-
-.link-group{
-  display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
-}
-.link-btn{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:.55rem .8rem; border-radius:999px;
-  border:1px solid var(--line); background:transparent; color:var(--fg);
-  text-decoration:none; cursor:pointer;
-}
-.link-btn:hover{ border-color:#222; }
-
-.contact-grid{
-  margin-top:16px;
-  display:grid; grid-template-columns: 1fr 1fr; gap:16px;
-}
-@media (max-width: 900px){
-  .contact-grid{ grid-template-columns:1fr; }
+.contact {
+  display: grid;
+  gap: 24px;
 }
 
-/* Stats */
-.stat-grid{
-  margin-top:12px;
-  display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px;
+/* Hero superior */
+.contact__hero {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  align-items: center;
 }
-@media (max-width: 600px){
-  .stat-grid{ grid-template-columns: 1fr 1fr; }
-}
-.stat-card{
-  background: var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  text-align:center;
-}
-.stat-num{ display:block; font-size:1.25rem; font-weight:700 }
-.stat-label{ display:block; color:var(--muted); font-size:.9rem }
 
-/* Badges */
-.tech-badges{ display:flex; flex-wrap:wrap; gap:8px }
-.badge{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.4rem .7rem; border-radius:999px;
-  border:1px solid var(--line);
-  color:var(--fg); background:transparent; font-size:.92rem;
+.contact__avatar {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid #2a2a2a;
+  background: #151515;
 }
-.badge--tech{ background:#0f0f0f; }
 
-/* CTA fila */
-.cta-row{ display:flex; gap:8px; margin-top:12px }
-
-/* Panel  */
-.panel{
-  background: var(--card);
-  border:1px solid var(--line);
-  border-radius: var(--radius);
-  padding:16px;
-  box-shadow: var(--shadow);
+.contact__name {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
 }
-.panel__title{ margin: 0 0 12px 0; font-size:1.1rem }
 
-/* Ajustes generales de enlaces  */
-a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
-a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.contact__title {
+  margin: 0 0 12px;
+  color: #cfcfcf;
+}
+
+.contact__meta {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  color: #dcdcdc;
+}
+
+.contact__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #bdbdbd;
+}
+.contact__links a { text-decoration: underline; }
+
+/* Grid de bloques inferiores */
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Tarjetas reutilizables */
+.card {
+  background: #151515;
+  border: 1px solid #262626;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.card__title {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.card__text {
+  margin: 0;
+  color: #e6e6e6;
+}
+
+.card__hint {
+  margin-top: 10px;
+  color: #9a9a9a;
+  font-size: 0.9rem;
+}
+
+/* Badges de tecnologías */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #101010;
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+  color: #ececec;
+  font-size: 0.9rem;
+}
+
+/* Lista de certificaciones */
+.certs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.certs__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  background: #111;
+}
+.certs__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+.certs__name { color: #f3f3f3; }
+.certs__issuer { color: #bdbdbd; }
+.certs__pending { color: #9a9a9a; font-size: 0.9rem; }
+
+/* Botones base reutilizados */
+.btn {
+  appearance: none;
+  border: 1px solid #3a3a3a;
+  background: #1a1a1a;
+  color: #f0f0f0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .02s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover    { background: #212121; border-color: #4a4a4a; }
+.btn:active   { transform: translateY(1px); }
+
+.btn--primary {
+  background: #f5f5f5;
+  color: #0b0b0b;
+  border-color: #f5f5f5;
+}
+.btn--primary:hover { background: #eaeaea; border-color: #eaeaea; }
+
+.btn--ghost {
+  background: transparent;
+  color: #f0f0f0;
+  border-color: #3a3a3a;
+}
+.btn--ghost:hover { background: #1a1a1a; }
+
+/* Responsive */
+@media (max-width: 880px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+  .contact__hero {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .contact__avatar {
+    width: 140px;
+    height: 140px;
+  }
+}
+
 
 /* =========================
    Utilidades de margen
