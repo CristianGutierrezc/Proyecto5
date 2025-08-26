@@ -81,9 +81,7 @@ export default function Contact() {
         <article className="card">
           <h2 className="card__title">Sobre mí</h2>
           <p className="card__text">
-            Desarrollador full-stack con foco en interfaces limpias y APIs robustas.
-            Experiencia en React, Node.js, Express y MongoDB. Me interesa aplicar IA
-            práctica en productos digitales, manteniendo buenas prácticas y un diseño cuidadoso.
+            Desarrollador Full-Stack con foco en construir interfaces claras y APIs fiables. Trabajo con React, Redux Toolkit y JavaScript en el frontend; Node.js, Express y MongoDB en el backend. Me interesa aplicar IA de forma práctica en productos digitales, cuidando las buenas prácticas y un diseño consistente.
           </p>
         </article>
 
